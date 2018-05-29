@@ -54,6 +54,28 @@ void CALLBACK cbMidiInProc(
 int main()
 {
 
+	UINT mic = midiInGetNumDevs();
+	wprintf(L"MIDI In devices:\r\n");
+	for (UINT i = 0; i < mic; i++) {
+		MIDIINCAPS micaps = { 0 };
+		midiInGetDevCaps(i, &micaps, sizeof(MIDIINCAPS));
+		wprintf(L"%d) %s\r\n", i, micaps.szPname);
+	}
+
+	wprintf(L"\r\n");
+
+	UINT moc = midiOutGetNumDevs();
+	wprintf(L"MIDI Out devices:\r\n");
+	for (UINT i = 0; i < moc; i++) {
+		MIDIOUTCAPS mocaps = { 0 };
+		midiOutGetDevCaps(i, &mocaps, sizeof(MIDIOUTCAPS));
+		wprintf(L"%d) %s\r\n", i, mocaps.szPname);
+	}
+	
+	wprintf(L"Press any key to continue...\r\n");
+
+	_getch();
+
 	HMIDIIN hMidiIn = NULL;
 	midiInOpen(&hMidiIn, 0, (DWORD_PTR)cbMidiInProc, NULL, CALLBACK_FUNCTION| MIDI_IO_STATUS);
 	if (hMidiIn) {
