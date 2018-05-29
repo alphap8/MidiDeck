@@ -62,7 +62,7 @@ int main()
 		wprintf(L"%d) %s\r\n", i, micaps.szPname);
 	}
 
-	wprintf(L"\r\n");
+	wprintf(L"\r\n"); 
 
 	UINT moc = midiOutGetNumDevs();
 	wprintf(L"MIDI Out devices:\r\n");
